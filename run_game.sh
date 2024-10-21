@@ -6,11 +6,12 @@ echo "$NAME"
 mkdir "$GAMEDIR"
 cp *.java "$GAMEDIR"
 cd "$GAMEDIR"
-pwd
+echo "Running game from $(pwd)"
 echo "Compiling..."
 javac *.java
-echo "Running game..."
+echo "Running..."
 java GuessingGame
 echo "Done"
+echo "Removing class files..."
 rm *.class
 ls
