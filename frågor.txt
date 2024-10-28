@@ -1,0 +1,27 @@
+Siktar på VG
+1. git pull används för att hämta den senaste versionen av projektet från en remote repository. 
+git push används för att skicka alla commits från en lokal repository till en remote repository.
+
+2. git log används för att visa hela commit historiken.
+git status används för att visa vilken branch man är på, ändringar i arbetskatalogen och ändringar i staging area.
+
+3. En git branch är en kopia av master branch där man kan säkert göra ändringar i utan att påverka master. Man kan 
+sedan merga branches när man är färdig med arbetet i en branch för att sparar ändringarna i master branch.
+
+4. restore, reset och revert är 3 sätt att rulla tillbaks kod i Git. Restore används för att tex återställa en fil till
+ett tillstånd från en tidigare commit. Restore påverkar inte historiken. 
+Reset har tre olika flaggor, --soft, --mixed och --hard. Reset flyttar HEAD till en tidigare commit och med soft sparas
+ändringarna i staging area och arbetskatalogen. Reset --soft är bra för att göra små ändringar till en tidigare commit.
+Reset --mixed flyttar HEAD och index, det är standardflaggan som används om man inte anger en flagga. Ändringar i 
+arbetskatalogen sparas men ändringar i staging area tas bort från indexet.
+Reset --hard flyttar HEAD och index, men det tar även bort ändringar i arbetskatalogen. Alla ändringar tas bort permanent
+och kan inte återställas. Används bara om man är säker på att man vill förlora alla ändringar.   
+
+5. När git merge används läggs dem commits från branschen som mergades högst upp i commit historiken. Detta gör det enkelt
+att hålla koll på vad som är nyligen tillagd i main branschen. Nackdelen med git merge, är att när man arbetar med andra 
+utvecklare kan andras commits med mindre relevans till din egen hamna mellan dina commits i historiken. Vilket kan göra det svårt att hålla ordning på. 
+Git rebase är likt merge i att det också slår samman två branches. Med git rebase kan man ändra ordningen på commit historiken när man slår ihop två branches. Nackdelen med rebase är att när man arbetar med andra utvecklare kan konflikt uppstå när någon har pushat med rebase sedan du senast pullat.            
+
+Bilder på commit historiken finns i katalogen bilder. Som ett exempel mellan merge och rebase har jag skapat ett repo med en main branch med 4 commits och en feature-2 branch med 3 commits.
+Branschen feature-2 har basen på den första commitment i main branch. När jag kör git merge feature-2, får jag merge conflict för två filer. Jag löser konflikten genom att placera texten som har problem på en annan rad och kör sedan git add och commit. Det går snabbt och enkelt, men ändringarna som gjordes i feature-2 branschen ligger längst upp på commit historiken.
+Nu återställer jag main tillbaks innan merge. Denna gången kör jag git rebase feature-2 istället för git merge. Rebase får också konflikt med dem två filer som merge. Men när jag öppnar texteditorn för file.txt ser jag att raderna har omvänt ordning och konflikten står mellan HEAD och Commit D. Jag fixar problemen på samma sätt som förr och kör git add och git rebase --continue. Nu får jag en till konflikt med file.txt, detta fick jag inte med merge. Jag fixar problemet och fortsätter med rebase. Nu ligger ändringarna från feature-2 branschen efter den första commitment i main. 
