@@ -6,11 +6,10 @@ Siktar på VG
 3. En git branch är en kopia av master branch där man kan säkert göra ändringar i utan att påverka master. Man kan sedan merga branches när man är färdig med arbetet i en branch för att sparar ändringarna i master branch.
 
 4. restore, reset och revert är 3 sätt att rulla tillbaks kod i Git. 
-Restore används för att tex när man gjort ett misstag på en fil i arbetskatalogen återställa den till ett tillstånd från en tidigare commit. Restore påverkar inte historiken. 
-Reset har tre olika flaggor, --soft, --mixed och --hard. Reset flyttar HEAD till en tidigare commit och med soft sparas
-ändringarna i staging area och arbetskatalogen. Reset --soft är bra för att göra små ändringar till en tidigare commit.
-Reset --mixed flyttar HEAD och index, det är standardflaggan som används om man inte anger en flagga. Ändringar i 
-arbetskatalogen sparas men ändringar i staging area tas bort från indexet. Används liknande som soft men när man inte vill ha ändringar sparade i staging area.
+Restore används för att tex när man gjort ett misstag på en fil i arbetskatalogen återställa den till ett tillstånd från en tidigare commit. Restore kan också användas för att unstage ändringar. Restore påverkar inte historiken. Till exempel kan man köra git restore --source [hash] [file], då får man filen i samma tillstånd som commitment man har angett. 
+Reset har tre olika flaggor, --soft, --mixed och --hard. 
+Reset --soft flyttar HEAD till en tidigare commit och sparar ändringarna i både staging area och arbetskatalogen. Soft är bra för att göra små ändringar till en tidigare commit. Till exempel om git reset --soft HEAD~1 körs, pekar HEAD nu på commitment en steg bak. Alla ändringar från den senaste commit finns fortfarande kvar på arbetskatalogen och staging area, vilket gör det enkelt att göra en liten ändring och sedan köra git add och commit. 
+Reset --mixed flyttar HEAD och index, det är standardflaggan som används om man inte anger en flagga. Ändringar i arbetskatalogen sparas men ändringar i staging area tas bort från indexet. Används när man till exempel inte vill commita allt samtidigt. Till exempel kan man köra git reset --mixed HEAD~1 för att gå tillbaka till förra commit göra ändringar och sedan köra git add på det man vill inkludera i commiten.
 Reset --hard flyttar HEAD och index, men det tar även bort ändringar i arbetskatalogen. Alla ändringar tas bort permanent
 och kan inte återställas. Används bara om man är säker på att man vill gå tillbaks till en tidigare commit och förlora alla ändringar.   
 
